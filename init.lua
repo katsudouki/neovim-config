@@ -60,7 +60,7 @@ require('lazy').setup({
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'lunar'
+      vim.cmd.colorscheme 'onedark'
     end,
   },
 
@@ -347,27 +347,7 @@ function save_file_in_insert_mode()
     vim.cmd([[startinsert]])
 end
 vim.api.nvim_set_keymap('i', '<C-S>', '<cmd>lua save_file_in_insert_mode()<CR>', { noremap = true })
-local rainbow_delimiters = require 'rainbow-delimiters'
 
-vim.g.rainbow_delimiters = {
-    strategy = {
-        [''] = rainbow_delimiters.strategy['global'],
-        vim = rainbow_delimiters.strategy['local'],
-    },
-    query = {
-        [''] = 'rainbow-delimiters',
-        lua = 'rainbow-blocks',
-    },
-    highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterPurple',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    },
-}
 vim.cmd([[hi NvimTreeNormalNC guibg=NONE]])
 vim.cmd([[highlight NvimTreeNormal guibg=NONE ctermbg=NONE]])
 vim.g.nvim_tree_highlight_opened_files = 1 
@@ -377,7 +357,18 @@ require("notify").setup({
 vim.api.nvim_set_option('cursorcolumn', true)
 vim.api.nvim_set_option('cursorline', true)
 
-require 'colorizer'.setup()
+require'colorizer'.setup(
+  {'*';},
+  {
+    RGB      = true;         -- #RGB hex codes
+	  RRGGBB   = true;         -- #RRGGBB hex codes
+	  names    = true;         -- "Name" codes like Blue
+	  RRGGBBAA = true;         -- #RRGGBBAA hex codes
+	  rgb_fn   = true;         -- CSS rgb() and rgba() functions
+	  hsl_fn   = true;         -- CSS hsl() and hsla() functions
+	  css      = true;         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+	  css_fn   = true;         -- Enable all CSS *functions*: rgb_fn, hsl_fn
+  })
 require("ibl").setup()
 
 
@@ -448,3 +439,46 @@ map('v', '<C-Right>', '<Esc>:tabnext<CR>gv')
 map('v', '<C-Left>', '<Esc>:tabprevious<CR>gv')
 map('c', '<C-Right>', '<C-C>:tabnext<CR>')
 map('c', '<C-Left>', '<C-C>:tabprevious<CR>')
+local rainbow_delimiters = require 'rainbow-delimiters'
+
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+    },
+    highlight = {
+        'RainbowDelimiterRed',
+        'RainbowDelimiterPurple',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
+    },
+}
+
+
+    require("presence").setup({
+      auto_update = true,
+      neovim_image_text = "Neovim Text Editor",
+      main_image = "neovim",
+      client_id = "793271441293967371",
+      log_level = nil,
+      debounce_timeout = 10,
+      enable_line_number = false,
+      blacklist = {},
+      buttons = true,
+      file_assets = {},
+      show_time = true,
+      editing_text = "📝 Editando %s",
+      file_explorer_text = "🔎 Procurando %s",
+      git_commit_text = "🖋️ Commitando Mudancas",
+      plugin_manager_text = "🔧 Gerenciando plugins",
+      reading_text = "📰 Lendo %s",
+      workspace_text = "💼 Trabalhando em %s",
+      line_number_text = "📃 Linha %s de %s",
+    })

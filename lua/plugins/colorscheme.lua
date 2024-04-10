@@ -1,4 +1,4 @@
 return {
   "LunarVim/lunar.nvim",
-  "norcalli/nvim-colorizer.lua"
+  "norcalli/nvim-colorizer.lua",
 }
