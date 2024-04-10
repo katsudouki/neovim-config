@@ -380,12 +380,71 @@ vim.api.nvim_set_option('cursorline', true)
 require 'colorizer'.setup()
 require("ibl").setup()
 
-vim.api.nvim_set_keymap('i', '<C-z>', '<Cmd>undo<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-y>', '<Cmd>redo<CR>', { noremap = true, silent = true })
+
 vim.api.nvim_set_keymap('i', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
 -- Duplicate current line above in insert mode
 vim.api.nvim_set_keymap('i', '<C-d>', '<Esc>yyP`^a', { noremap = true, silent = true })
+-- Mapeamento para copiar (ctrl+c)
+vim.api.nvim_set_keymap('n', '<C-c>', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>"+y', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('c', '<C-c>', '<C-c>"+y', { noremap = true, silent = true })
+
+-- Mapeamento para colar (ctrl+v)
+vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-v>', '"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-v>', '<ESC>"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('c', '<C-v>', '<C-c>"+p', { noremap = true, silent = true })
+
+-- Mapeamento para recortar (ctrl+x)
+vim.api.nvim_set_keymap('n', '<C-x>', '"+x', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-x>', '"+x', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-x>', '<ESC>"+x', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('c', '<C-x>', '<C-c>"+x', { noremap = true, silent = true })
+
+-- Mapeamento para undo (ctrl+z)
+vim.api.nvim_set_keymap('', '<C-z>', '<cmd>undo<CR>', { noremap = true, silent = true })
+
+-- Mapeamento para redo (ctrl+r)
+vim.api.nvim_set_keymap('', '<C-r>', '<cmd>redo<CR>', { noremap = true, silent = true })
+
+-- Mapeamento para salvar (ctrl+s)
+vim.api.nvim_set_keymap('n', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('c', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
+
+-- Mapeamento para sair (ctrl+q)
+vim.api.nvim_set_keymap('n', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('c', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
 
 
+-- Define o tamanho da tab como 3 espaços
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+
+-- Mapeia a tecla Tab para inserir 3 espaços
+vim.api.nvim_set_keymap('i', '<Tab>', '    ', { noremap = true, silent = true })
+
+local function map(mode, key, command)
+    vim.api.nvim_set_keymap(mode, key, command, {noremap = true, silent = true})
+end
+
+-- Hotkey para criar uma nova aba
+map('i', '<C-n>', '<ESC>:tabnew ')
+-- Hotkeys para mudar entre abas
+map('n', '<C-Right>', ':tabnext<CR>')
+map('n', '<C-Left>', ':tabprevious<CR>')
+map('i', '<C-Right>', '<Esc>:tabnext<CR>a')
+map('i', '<C-Left>', '<Esc>:tabprevious<CR>a')
+map('v', '<C-Right>', '<Esc>:tabnext<CR>gv')
+map('v', '<C-Left>', '<Esc>:tabprevious<CR>gv')
+map('c', '<C-Right>', '<C-C>:tabnext<CR>')
+map('c', '<C-Left>', '<C-C>:tabprevious<CR>')
