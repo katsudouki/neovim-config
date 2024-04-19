@@ -13,11 +13,8 @@ git clone --depth 1 https://github.com/katsudouki/neovim-config.git ~/.config/nv
 - ctrl+s to save
 - ctrl+z to undo
 - ctrl+y to redo
-- ctrl+y to quit/close file
 - ctrl+t open terminal inside nvim
-- ctrl+➡️ next tab
-- ctrl+⬅️ previous tab
-
+- ctrl+\ to switch to next tab
 
 >! **Info**:<br>
 > Use the TransparentToggle command to enable or disable transparency without having to modify the configuration in lua.

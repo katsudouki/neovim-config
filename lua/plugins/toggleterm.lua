@@ -1,4 +1,5 @@
 return {
+  -- INFO: plugin que faz popup de terminal ao apertar ctrl+t
   "akinsho/toggleterm.nvim",
   version = "*",
   config = function()

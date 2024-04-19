@@ -1,4 +1,10 @@
 return {
+	-- INFO: plugins de temas
   "LunarVim/lunar.nvim",
-  "norcalli/nvim-colorizer.lua",
+  "catppuccin/nvim",
+  "folke/tokyonight.nvim",
+  "EdenEast/nightfox.nvim",
+  "eldritch-theme/eldritch.nvim",
+  "Mofiqul/vscode.nvim",
+  "navarasu/onedark.nvim"
 }

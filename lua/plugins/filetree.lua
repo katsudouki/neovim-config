@@ -1,5 +1,6 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 return {
+  -- INFO: plugin da arvore de arquivos
   "nvim-tree/nvim-tree.lua",
   version = "*",
   lazy = false,

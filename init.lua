@@ -38,57 +38,7 @@ require('lazy').setup({
   },
 
   { 'folke/which-key.nvim', opts = {} },
-  {
-      'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-        vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-      end,
-    },
-  },
 
-  {
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
-
-  {
-
-    'nvim-lualine/lualine.nvim',
-
-    opts = {
-    options = {
-  theme = 'auto', 
-  component_separators = { left = '', right = '' },
-  section_separators = { left = '', right = '' },
-  disabled_filetypes = {     
-      statusline = {},       
-      winbar = {},           
-  },
-
-  ignore_focus = {},         
-  always_divide_middle = true,
-  globalstatus = false,       
-  refresh = {                  
-    statusline = 1000,         
-    tabline = 1000,           
-    winbar = 1000             
-}
-},
-    },
-  },
 
   { 'numToStr/Comment.nvim', opts = {} },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -113,9 +63,7 @@ require('lazy').setup({
   { import = 'plugins' },
 }, {})
 
-
 vim.o.hlsearch = false
-
 vim.wo.number = true
 vim.o.mouse = 'a'
 vim.o.clipboard = 'unnamedplus'
@@ -128,9 +76,7 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
-vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
@@ -158,25 +104,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     signs = false,
   }
 )
-
 pcall(require('telescope').load_extension, 'fzf')
-vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
-vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>/', function()
-  require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
-    previewer = false,
-  })
-end, { desc = '[/] Fuzzily search in current buffer' })
-
-vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
-vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
-vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c','css', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
   auto_install = false,
 
   highlight = { enable = true },
@@ -234,11 +164,6 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
-
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
@@ -342,143 +267,23 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.o.cmdheight = 0
 vim.opt.termguicolors = true
-function save_file_in_insert_mode()
-    vim.cmd([[write]])
-    vim.cmd([[startinsert]])
-end
-vim.api.nvim_set_keymap('i', '<C-S>', '<cmd>lua save_file_in_insert_mode()<CR>', { noremap = true })
-
 vim.cmd([[hi NvimTreeNormalNC guibg=NONE]])
 vim.cmd([[highlight NvimTreeNormal guibg=NONE ctermbg=NONE]])
 vim.g.nvim_tree_highlight_opened_files = 1 
 require("notify").setup({
   background_colour = "#000000",
 })
+-- INFO: habilita os cursores vertical e horizontal
 vim.api.nvim_set_option('cursorcolumn', true)
 vim.api.nvim_set_option('cursorline', true)
-
-require'colorizer'.setup(
-  {'*';},
-  {
-    RGB      = true;         -- #RGB hex codes
-	  RRGGBB   = true;         -- #RRGGBB hex codes
-	  names    = true;         -- "Name" codes like Blue
-	  RRGGBBAA = true;         -- #RRGGBBAA hex codes
-	  rgb_fn   = true;         -- CSS rgb() and rgba() functions
-	  hsl_fn   = true;         -- CSS hsl() and hsla() functions
-	  css      = true;         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-	  css_fn   = true;         -- Enable all CSS *functions*: rgb_fn, hsl_fn
-  })
-require("ibl").setup()
-
-
-vim.api.nvim_set_keymap('i', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-\\>', '<Cmd>tabNext<CR>', { noremap = true, silent = true })
--- Duplicate current line above in insert mode
-vim.api.nvim_set_keymap('i', '<C-d>', '<Esc>yyP`^a', { noremap = true, silent = true })
--- Mapeamento para copiar (ctrl+c)
-vim.api.nvim_set_keymap('n', '<C-c>', '"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-c>', '<ESC>"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('c', '<C-c>', '<C-c>"+y', { noremap = true, silent = true })
-
--- Mapeamento para colar (ctrl+v)
-vim.api.nvim_set_keymap('n', '<C-v>', '"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-v>', '"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-v>', '<ESC>"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('c', '<C-v>', '<C-c>"+p', { noremap = true, silent = true })
-
--- Mapeamento para recortar (ctrl+x)
-vim.api.nvim_set_keymap('n', '<C-x>', '"+x', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-x>', '"+x', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-x>', '<ESC>"+x', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('c', '<C-x>', '<C-c>"+x', { noremap = true, silent = true })
-
--- Mapeamento para undo (ctrl+z)
-vim.api.nvim_set_keymap('', '<C-z>', '<cmd>undo<CR>', { noremap = true, silent = true })
-
--- Mapeamento para redo (ctrl+r)
-vim.api.nvim_set_keymap('', '<C-r>', '<cmd>redo<CR>', { noremap = true, silent = true })
-
--- Mapeamento para salvar (ctrl+s)
-vim.api.nvim_set_keymap('n', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('c', '<C-s>', '<cmd>write<CR>', { noremap = true, silent = true })
-
--- Mapeamento para sair (ctrl+q)
-vim.api.nvim_set_keymap('n', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('c', '<C-q>', '<cmd>quit<CR>', { noremap = true, silent = true })
-
-
--- Define o tamanho da tab como 3 espaços
+-- INFO: Define o tamanho da tab como 3 espaços
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 
--- Mapeia a tecla Tab para inserir 3 espaços
-vim.api.nvim_set_keymap('i', '<Tab>', '    ', { noremap = true, silent = true })
-
-local function map(mode, key, command)
-    vim.api.nvim_set_keymap(mode, key, command, {noremap = true, silent = true})
-end
-
--- Hotkey para criar uma nova aba
-map('i', '<C-n>', '<ESC>:tabnew ')
--- Hotkeys para mudar entre abas
-map('n', '<C-Right>', ':tabnext<CR>')
-map('n', '<C-Left>', ':tabprevious<CR>')
-map('i', '<C-Right>', '<Esc>:tabnext<CR>a')
-map('i', '<C-Left>', '<Esc>:tabprevious<CR>a')
-map('v', '<C-Right>', '<Esc>:tabnext<CR>gv')
-map('v', '<C-Left>', '<Esc>:tabprevious<CR>gv')
-map('c', '<C-Right>', '<C-C>:tabnext<CR>')
-map('c', '<C-Left>', '<C-C>:tabprevious<CR>')
-local rainbow_delimiters = require 'rainbow-delimiters'
-
-vim.g.rainbow_delimiters = {
-    strategy = {
-        [''] = rainbow_delimiters.strategy['global'],
-        vim = rainbow_delimiters.strategy['local'],
-    },
-    query = {
-        [''] = 'rainbow-delimiters',
-        lua = 'rainbow-blocks',
-    },
-    highlight = {
-        'RainbowDelimiterRed',
-        'RainbowDelimiterPurple',
-        'RainbowDelimiterBlue',
-        'RainbowDelimiterOrange',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterViolet',
-        'RainbowDelimiterCyan',
-    },
-}
-
-
-    require("presence").setup({
-      auto_update = true,
-      neovim_image_text = "Neovim Text Editor",
-      main_image = "neovim",
-      client_id = "793271441293967371",
-      log_level = nil,
-      debounce_timeout = 10,
-      enable_line_number = false,
-      blacklist = {},
-      buttons = true,
-      file_assets = {},
-      show_time = true,
-      editing_text = "📝 Editando %s",
-      file_explorer_text = "🔎 Procurando %s",
-      git_commit_text = "🖋️ Commitando Mudancas",
-      plugin_manager_text = "🔧 Gerenciando plugins",
-      reading_text = "📰 Lendo %s",
-      workspace_text = "💼 Trabalhando em %s",
-      line_number_text = "📃 Linha %s de %s",
-    })
+-- INFO: Define a cor do cursor
+vim.cmd('highlight Cursor guibg=#ab34eb')
+require('keybindings')
+vim.cmd.colorscheme 'tokyonight-night'
