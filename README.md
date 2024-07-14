@@ -2,7 +2,7 @@
 my personal backup from neovim with transparent background
 
 structure:
-
+```
 ├── init.lua                --INFO: neovim main file 
 ├── lazy-lock.json
 ├── lua
@@ -10,7 +10,7 @@ structure:
 │   ├── keybindings.lua     --INFO: keyboard shortcuts
 │   └── plugins             --INFO: folder to put plugins 
 └── README.md
-
+```
 
 
 
