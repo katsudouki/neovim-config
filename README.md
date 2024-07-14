@@ -1,6 +1,19 @@
 # neovim-config
 my personal backup from neovim with transparent background
 
+structure:
+
+├── init.lua                --INFO: neovim main file 
+├── lazy-lock.json
+├── lua
+│   ├── colorscheme.lua     --INFO: file containing active colorscheme setting
+│   ├── keybindings.lua     --INFO: keyboard shortcuts
+│   └── plugins             --INFO: folder to put plugins 
+└── README.md
+
+
+
+
 # Usage:
 ```bash
 git clone --depth 1 https://github.com/katsudouki/neovim-config.git ~/.config/nvim && nvim

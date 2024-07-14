@@ -16,66 +16,10 @@ require('lazy').setup({
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-  {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-      'folke/neodev.nvim',
-    },
-  },
-
-  {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'rafamadriz/friendly-snippets',
-    },
-  },
-
-  { 'folke/which-key.nvim', opts = {} },
-
-
-  { 'numToStr/Comment.nvim', opts = {} },
-  { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
-
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'make',
-    cond = function()
-      return vim.fn.executable 'make' == 1
-    end,
-  },
-
-  {
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
-
 
   { import = 'plugins' },
 }, {})
 
-vim.o.hlsearch = false
-vim.wo.number = true
-vim.o.mouse = 'a'
-vim.o.clipboard = 'unnamedplus'
-vim.o.breakindent = true
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.wo.signcolumn = 'yes'
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-vim.o.completeopt = 'menuone,noselect'
-vim.o.termguicolors = true
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -283,8 +227,24 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-
+vim.o.hlsearch = false
+vim.wo.number = true
+vim.o.mouse = 'a'
+vim.o.clipboard = 'unnamedplus'
+vim.o.breakindent = true
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.wo.signcolumn = 'yes'
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+vim.o.completeopt = 'menuone,noselect'
+vim.o.termguicolors = true
 -- INFO: Define a cor do cursor
 vim.cmd('highlight Cursor guibg=#ab34eb')
+
+
+-- Use colorscheme variable
+local themes = require('colorscheme')
+vim.cmd("colorscheme " .. themes.colorscheme)
 require('keybindings')
-vim.cmd.colorscheme 'tokyonight-night'
