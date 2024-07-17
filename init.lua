@@ -42,12 +42,17 @@ require('telescope').setup {
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
     virtual_text = true,
     virtual_text_prefix = "",
     update_in_insert=true,
-    signs = false,
-  }
-)
+    signs=true,
+  })
+  local signs = { Error = "❌", Warn = "⚠️ ", Hint = "💡", Info = "ℹ️" }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 pcall(require('telescope').load_extension, 'fzf')
 require('nvim-treesitter.configs').setup {
   ensure_installed = { 'c','css', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vimdoc', 'vim' },
@@ -239,6 +244,7 @@ vim.opt.autoindent = true
 vim.o.hlsearch = false
 vim.wo.number = true
 vim.o.mouse = 'a'
+vim.opt.mouse="a"
 vim.o.clipboard = 'unnamedplus'
 vim.o.breakindent = true
 vim.o.undofile = true
@@ -249,11 +255,13 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
+vim.wo.wrap = true
+vim.o.linebreak = true
 -- INFO: Define a cor do cursor
 vim.cmd('highlight Cursor guibg=#ab34eb')
-
-
 -- Use colorscheme variable
 local themes = require('colorscheme')
 vim.cmd("colorscheme " .. themes.colorscheme)
 require('keybindings')
+vim.cmd 'aunmenu PopUp.How-to\\ disable\\ mouse'
+vim.cmd 'aunmenu PopUp.-1-'
