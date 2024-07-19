@@ -6,5 +6,6 @@ return {
   "EdenEast/nightfox.nvim",
   "eldritch-theme/eldritch.nvim",
   "Mofiqul/vscode.nvim",
-  "navarasu/onedark.nvim"
+  "navarasu/onedark.nvim",
+  "Mofiqul/dracula.nvim"
 }

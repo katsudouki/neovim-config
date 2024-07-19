@@ -265,3 +265,24 @@ vim.cmd("colorscheme " .. themes.colorscheme)
 require('keybindings')
 vim.cmd 'aunmenu PopUp.How-to\\ disable\\ mouse'
 vim.cmd 'aunmenu PopUp.-1-'
+local lspconfig = require('lspconfig')
+
+-- Configuração do TailwindCSS LSP
+lspconfig.tailwindcss.setup {
+  filetypes = { 'html', 'css', 'scss', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'django-html' },
+  init_options = {
+    userLanguages = {
+      ['django-html'] = 'html'
+    }
+  },
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          -- Para reconhecer as classes TailwindCSS em HTML Django
+          { "class\\s*=\\s*['\"]([^'\"]*)['\"]", "class\\s*=\\s*['\"]([^'\"]*)['\"]" }
+        }
+      }
+    }
+  }
+}
