@@ -1,4 +1,4 @@
 local M = {}
 -- INFO: defina o esquema de cores que quer aqui
-M.colorscheme = "dracula"
+M.colorscheme = "eldritch"
 return M

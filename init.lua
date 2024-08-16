@@ -229,9 +229,7 @@ vim.opt.termguicolors = true
 vim.cmd([[hi NvimTreeNormalNC guibg=NONE]])
 vim.cmd([[highlight NvimTreeNormal guibg=NONE ctermbg=NONE]])
 vim.g.nvim_tree_highlight_opened_files = 1 
-require("notify").setup({
-  background_colour = "#000000",
-})
+
 -- INFO: habilita os cursores vertical e horizontal
 vim.api.nvim_set_option('cursorcolumn', true)
 vim.api.nvim_set_option('cursorline', true)
