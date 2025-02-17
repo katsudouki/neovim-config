@@ -285,3 +285,14 @@ lspconfig.tailwindcss.setup {
   }
 }
 
+vim.api.nvim_command([[
+  menu PopUp.Copy <cmd>normal! "+y<cr>
+  menu PopUp.Paste <cmd>normal! "+p<cr>
+  menu PopUp.Cut <cmd>normal! "+x<cr>
+  menu PopUp.-Sep- <Nop>
+  menu PopUp.Quit <cmd>quit<cr>
+]])
+
+
+vim.api.nvim_set_keymap('i', '<RightMouse>', '<cmd>popup! PopUp<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<RightMouse>', '<C-\\><C-g>gv<cmd>popup! PopUp<cr>', { noremap = true, silent = true })
