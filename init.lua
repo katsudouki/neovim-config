@@ -141,6 +141,11 @@ local on_attach = function(_, bufnr)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
 end
+local function tbl_add_reverse_lookup(tbl)
+  for k, v in pairs(tbl) do
+    tbl[v] = k
+  end
+end
 local servers = {
   lua_ls = {
     Lua = {
